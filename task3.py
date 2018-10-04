@@ -10,7 +10,7 @@ from sqlalchemy import create_engine
 # 3306 is the port
 engine = create_engine('mysql+pymysql://root:root@172.18.0.2:3306/test')
 
-# hard coded solution that works here
+# hard coded solution
 # assigning database to dataframes
 profiles_df = pd.read_sql_query('SELECT * FROM profiles', engine)
 clients_df = pd.read_sql_query('SELECT * FROM clients', engine)
@@ -20,8 +20,9 @@ merged_df = clients_df.merge(
     profiles_df, 'outer', left_on='idprofile', right_on='contact_id')
 
 """
-# ideally somehting like this would be better, but the condition got hard coded regardless:
+# ideally something like this would be better, but the condition were getting hard coded regardless, otherwise:
 
+final_df=pd.dataframe
 for table in engine.table_names():
     sql_query = 'SELECT * FROM '+str(table)
     new_df =  pd.read_sql_query(sql_query, engine)
