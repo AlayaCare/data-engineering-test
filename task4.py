@@ -1,5 +1,5 @@
 """
-Rewritting
+Rewritting single column
 """
 
 import pandas as pd
@@ -12,9 +12,12 @@ import numpy as np
 engine = create_engine('mysql+pymysql://root:root@172.18.0.2:3306/test')
 # hard coded solution
 # assigning database to dataframes
-profiles_df = pd.read_sql_query('SELECT * FROM profiles', engine)
+profiles_df = pd.read_sql_table('profiles', engine)
 #updating column to new value
-profiles_df['value'] = 'fifth row'
+
+column_to_updata = 'value'
+updated_value = 'fifth row'
+profiles_df[column_to_updata] = updated_value
 #writting updated dataframe back to the database in docker
 profiles_df.to_sql(con=engine,name = 'profiles', if_exists='replace',index=False)
 #will rewrite column 'random' if it is already in profiles,
